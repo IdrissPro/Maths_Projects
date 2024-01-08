@@ -1,0 +1,47 @@
+#PARTIE1.2: FLUCTUATION D'ECHANTILLONNAGE ET ESTIMATEUR
+
+n=1000 # On prend n=1000 pour observer les fluctuations d'échantillonage à grande échelle
+# Simuler 3 échantillons de n valeurs indépendantes de la loi de Pareto
+x_1 <- theta*(1-runif(n))^(-1/alpha)
+x_2 <- theta*(1-runif(n))^(-1/alpha)
+x_3 <- theta*(1-runif(n))^(-1/alpha)
+
+#Partie estimateur
+par(mfrow= c(2,2))
+n <- 1000
+#boucler sur alpha l'affichage de nos courbes
+for (j in 1:length(alpha_values)) {
+  alpha <- alpha_values[j]
+  x_1 <- theta*(1-runif(n))^(-1/alpha)
+  x_2 <- theta*(1-runif(n))^(-1/alpha)
+  x_3 <- theta*(1-runif(n))^(-1/alpha)
+  a_1 <- rep(0, n)
+  a_2 <- rep(0, n)
+  a_3 <- rep(0, n)
+  for (k in 1:n) {
+    a_1[k] <- k / sum(log(x_1[1:k]))
+    a_2[k] <- k / sum(log(x_2[1:k]))
+    a_3[k] <- k / sum(log(x_3[1:k]))
+  }
+  # Affichage des résultats
+cat("Les valeurs de la suite (a_1_k) sont:\n")
+print(a_1)
+cat("Les valeurs de la suite (a_2_k) sont:\n")
+print(a_2)
+cat("Les valeurs de la suite (a_3_k) sont:\n")
+print(a_3)
+  # Affichage de la courbe pour k allant de 1 à 40 (comportement transitoire)
+  main_title=paste("Simulations (comportement transitoire)\n alpha = ", alpha_values[j])
+  plot(1:40, a_1[1:40], type = "b",
+      xlab = "Valeur de k", ylab = "Valeur de a_k",main=main_title,col="red")
+  lines(1:40, a_2[1:40], type = "b",col="blue")
+  lines(1:40, a_3[1:40], type = "b",col="green")
+  abline(h = alpha, col = "black", lty = 2)
+  # Affichage de la courbe pour k allant de 1 à n (comportement transitoire)
+  main_title=paste("Convergencence de la suite a_k \n alpha=", alpha_values[j])
+  plot(1:n, a_1, type = "l", col = "red", ylim = range(c(a_1, a_2)), xlab = "Valeur de k", ylab = "Valeur de a_k",main=main_title)
+  lines(1:n, a_2, type = "l", col = "blue")
+  lines(1:n, a_3, type = "l", col = "green")
+  abline(h = alpha, col = "black", lty = 2)
+  }
+

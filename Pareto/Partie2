@@ -1,0 +1,33 @@
+#PARTIE 2(simuler le comportement à distance finie de l'estimateur)
+
+# Fixer le paramètre alpha de la loi de Pareto
+alpha <- 3
+# Fixer le nombre d'échantillons à simuler
+n_echantillons <- 400
+
+# Fixer la taille de chaque échantillon
+taille_echantillon <- 1000
+
+# Initialiser la matrice qui stockera les données
+data <- matrix(nrow = taille_echantillon, ncol = n_echantillons)
+
+# Simuler les échantillons et les stocker dans la matrice data
+for (i in 1:n_echantillons) {
+  x <- runif(taille_echantillon)
+  data[,i] <- (1-x)^(-1/alpha)
+}
+
+#Etablir la matrice des simulations pour les différentes valeurs (50, 100, 200, 500, 1000)
+sizes <- c(50, 100, 200, 500, 1000)
+alpha_est <- matrix(0, nrow = length(sizes), ncol = n_echantillons)
+for (i in 1:length(sizes)) {
+  for (j in 1:n_echantillons) {
+    alpha_est[i,j] <- sizes[i] / sum(log(data[1:sizes[i],j]))
+  }
+}
+
+#Affichage des boîtes à moustache et des moyenne des estimations
+boxplot(t(alpha_est), names = sizes, ylab = "Valeur de l'estimateur", xlab = "Taille de l'échantillon")
+abline(h = alpha, col = "red", lty = 2)
+points(apply(alpha_est, 1, mean))
+

@@ -1,0 +1,25 @@
+#PARTIE 1.1: SIMULATION ECHANTILLON ET HISTOGRAMME
+
+#Fixer les paramètres de la loi de Pareto
+theta <- 1
+n_values <- c(10, 100, 1000)
+alpha_values <- c(3, 10)
+#séparer les graphiques
+par(mfrow=c(length(n_values), length(alpha_values)), mar=c(4, 4, 2, 2))
+
+for (i in 1:length(n_values)) {
+  for (j in 1:length(alpha_values)) {
+    n <- n_values[i]
+    alpha <- alpha_values[j]
+    x <- theta*(1-runif(n))^(-1/alpha)
+    
+    hist(x, breaks = 50, freq = FALSE, main = paste("n =", n, ", alpha =", alpha),
+         xlab = "Valeurs de l'échantillon")
+    
+    pareto_fdr <- function(x) {
+      ifelse(x < theta, 0, (alpha*(theta)^alpha)*(1/x)^(alpha+1))
+    }
+    curve(pareto_fdr, from = 0, to = max(x), ylab = "F(x)", xlab = "x", add=TRUE, col="blue")
+  }
+}
+
