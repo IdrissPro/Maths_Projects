@@ -1,0 +1,64 @@
+public void entrerScoreUtilisateur()
+{
+    Scanner scan= new Scanner(System.in);
+    System.out.println("Sélectionnez le numéro du type de sport:1)FOOT  2)FUTSAL 3)HAND  4)RUGBY 5)VOLLEY ");
+    int type_sport=scan.nextInt();
+    Sport sport;
+    System.out.println("Entrez le nb de buts marqués par l'équipe du club");
+    int buts1=scan.nextInt();
+    System.out.println("Entrez le nb de buts marqués par l'équipe adverse");
+    int buts2=scan.nextInt();
+    match.majScore(buts1,buts2);
+    switch (type_sport) {
+        case 1: {
+            sport=Sport.FOOT;
+            if (geteFoot() == null){
+                seteFoot(new EFoot(sport.getLabel()));
+            }
+            eFoot.majSuiteAUnMatch(match);
+            break;
+        }
+        case 2: {
+            sport=Sport.HAND;
+            if (geteHand() == null){
+                seteHand(new EHand(sport.getLabel()));
+            }
+            eHand.majSuiteAUnMatch(match);
+            break;
+        }
+        case 3: {
+            sport=Sport.FUTSAL;
+            if (getEFutsal() == null){
+                setEFutsal(new EFutsal(sport.getLabel()));
+            }
+            EFutsal.majSuiteAUnMatch(match);
+            break;
+        }
+        case 4: {
+            sport=Sport.VOLLEY;
+            if (geteVolley() == null){
+                seteVolley(new EVolley(sport.getLabel()));
+            }
+            eVolley.majSuiteAUnMatch(match);
+            break;
+        }
+        case 5: {
+            sport=Sport.RUGBY;
+            if (geteRugby() == null){
+                seteRugby(new ERugby(sport.getLabel()));
+            }
+            eRugby.majSuiteAUnMatch(match);
+            break;
+        }
+        default: {
+            System.out.println("Saisie KO : sport non pris en charge !");
+            break;
+        }
+    }
+}
+
+
+
+
+
+

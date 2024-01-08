@@ -1,0 +1,2 @@
+Equipe de Hand-ball	nbPoints : 2	nbButsMarques : 19	moyMarques : 9.5	nbButsEncaisses : 14	moyEncaissee : 7.0
+Equipe de football	nbPoints : 4	nbButsMarques : 3	moyMarques : 1.5	nbButsEncaisses : 1	moyEncaissee : 0.5
